@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TagForm, AuthorForm, QuoteForm
 from .models import Tag, Author, Quote
 
 
 def main(request):
-    return render(request, 'quoteapp/index.html')
+    quotes = Quote.objects.all()
+    return render(request, 'quoteapp/index.html', {"quotes": quotes})
 
 
 def tag(request):
@@ -36,21 +37,26 @@ def quote(request):
     authors = Author.objects.all()
 
     if request.method == 'POST':
-        # print(f"request.POST.authors: {request.POST['authors']}")
         form = QuoteForm(request.POST)
         if form.is_valid():
-            new_quote = form.save()
+            new_quote = form.save(commit=False)
 
             # choice_authors = Author.objects.filter(fullname__in=request.POST.getlist('authors'))
             # for author in choice_authors.iterator():
             #     new_quote.authors.add(author)
 
-            # choice_authors = Author.objects.filter(fullname=request.POST['authors'])
-            # new_quote.authors.add(choice_authors)
+            # author_id = request.POST['author'] 
+            new_quote.author_id = request.POST['author']  
+            new_quote.save()
+
+            # choice_authors = Author.objects.filter(fullname=request.POST['author'])
+            # new_quote.author.add(choice_authors)
 
             choice_tags = Tag.objects.filter(name__in=request.POST.getlist('tags'))
             for tag in choice_tags.iterator():
                 new_quote.tags.add(tag)     
+
+            # new_quote.save()
 
             return redirect(to='quoteapp:main')
         else:
@@ -58,3 +64,12 @@ def quote(request):
 
     return render(request, 'quoteapp/quote.html', {"authors": authors, "tags": tags, 'form': QuoteForm()})
 
+
+def detail(request, quote_id):
+    quote = get_object_or_404(Quote, pk=quote_id)
+    return render(request, 'quoteapp/detail.html', {"quote": quote})
+
+
+def delete_quote(request, quote_id):
+    Quote.objects.get(pk=quote_id).delete()
+    return redirect(to='quoteapp:main')

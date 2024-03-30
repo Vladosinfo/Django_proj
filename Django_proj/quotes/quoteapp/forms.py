@@ -27,13 +27,14 @@ class AuthorForm(ModelForm):
 class QuoteForm(ModelForm):
 
     # author = ChoiceField(required=True, queryset=None, widget=ModelChoiceField)   
-    author = ModelChoiceField(required=True, queryset=Author.objects.all(), empty_label='Select author', widget=Select)   
-    # authors = HiddenInput()
+    # author = ModelChoiceField(required=True, queryset=Author.objects.all(), empty_label='Select author', widget=Select)   
+    # author = ChoiceField(required=True, queryset=Author.objects.all(), empty_label='Select author', widget=Select)   
+    # authors = HiddenInput(name='author')
     quote = CharField(min_length=10, max_length=255, required=True, widget=Textarea)  
 
     class Meta:
         model = Quote
-        fields = ['author', 'quote']
-        exclude = ['tags']
-        # fields = ['quote']
-        # exclude = ['author', 'tags']
+        # fields = ['author', 'quote']
+        # exclude = ['tags']
+        fields = ['quote']
+        exclude = ['author', 'tags']

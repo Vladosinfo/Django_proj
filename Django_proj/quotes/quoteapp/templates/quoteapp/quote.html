@@ -4,15 +4,15 @@
 
 <form method="POST" action="{% url 'quoteapp:quote' %}">
     {% csrf_token %}
-    <!-- <div style="padding: 10px">
+    <div style="padding: 10px">
         <label> Select Author:
-            <select name="authors" required>
+            <select name="author" required>
                 {% for author in authors %}
-                <option value="{{author.fullname}}">{{author.fullname}}</option>
+                <option value="{{author.id}}">{{author.fullname}}</option>
                 {% endfor %}
             </select>
         </label>
-    </div> -->
+    </div>
     <div style="padding: 10px">
         <label> Quote:
             {{ form.quote }}
