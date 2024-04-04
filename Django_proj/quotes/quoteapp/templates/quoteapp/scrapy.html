@@ -1,0 +1,11 @@
+{% extends "quoteapp/base.html" %}  {% block content %}
+
+<div class="scrapy_content">
+    <h2>Scrapy quotes</h2>
+    <h5>Сlick on the link bottom 'Pull quotes' to download quotes to the database</h5>    
+    <span class="scrapy-item">
+        <a class="scrapy" style="font-size: 38px" href="{% url 'quoteapp:scrapyng_quotes' %}">Pull quotes</a>
+    </span>
+</div>
+
+{% endblock %}
