@@ -4,6 +4,7 @@ from . import views
 app_name = 'quoteapp'
 
 urlpatterns = [
+    path('', views.main, name='main'),
     path('tag/', views.tag, name='tag'),
     path('author/', views.author, name='author'),
     path('quote/', views.quote, name='quote'),
@@ -12,6 +13,6 @@ urlpatterns = [
     path('delete/<int:quote_id>', views.delete_quote, name='delete'),
     path('scrapy/', views.scrapy, name='scrapy'),
     path('scrapyng_quotes/', views.scrapyng_quotes, name='scrapyng_quotes'),
-    path('', views.main, name='main'),
-    re_path('', views.main, name='main'),
+    # path('', views.main, name='main'),
+    # re_path('', views.main, name='main'),
 ]

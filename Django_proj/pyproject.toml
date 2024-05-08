@@ -12,6 +12,7 @@ psycopg2 = "^2.9.9"
 lxml = "^5.2.1"
 requests = "^2.31.0"
 beautifulsoup4 = "^4.12.3"
+django-environ = "^0.11.2"
 
 
 [build-system]
